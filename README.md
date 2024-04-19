@@ -37,4 +37,6 @@ How to Run this project?
 5.  <code>python manage.py createsuperuser</code>
 &nbsp;
 6.  <code>python manage.py runserver</code>
+
+
 Paste this <code>127.0.0.1:8000</code> IP Address on any browser and it will start.<code>127.0.0.1:8000/admin</code> and enter your superuser's username/pass for django admin panel access

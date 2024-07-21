@@ -1,4 +1,4 @@
-# django-notesapp
+# django-notes app
 Notes Sharing App using django(python framework)
 
 # PREREQUISITES

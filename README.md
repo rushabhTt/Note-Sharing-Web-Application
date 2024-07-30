@@ -4,7 +4,6 @@ Notes Sharing App using django(python framework)
 # PREREQUISITES
 1.  Python Version >> 3.7.8
 2.  Virtualenv setup
-  
  
 Features
 1. A registerd user can access all the notes shared/added by the admin

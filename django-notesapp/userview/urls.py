@@ -15,5 +15,7 @@ urlpatterns = [
     path('admincontrol/',views.admin_view,name="adminview"),
 
     path('profile/',views.profile_view,name="profile"),
-    path('profile/deleteprofile/',views.delete_profile,name="deleteprofile")
+    path('profile/deleteprofile/',views.delete_profile,name="deleteprofile"),
+
+    path('get-joke/', views.get_joke, name='get_joke'),
 ]

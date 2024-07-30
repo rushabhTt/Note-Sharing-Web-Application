@@ -2,15 +2,23 @@
 {% block content %}
 <h4 class="text-center text-primary p-2 border">SEM 2</h4>
 
-<form action="" method="POST" class="d-flex mx-auto w-25">
-  {% csrf_token %}
-  <select name="optionname" class="form-select mx-2" id="">
-    {% for n in notes%}
-    <option value="{{n}}">{{n}}</option>
-    {%endfor%}
-  </select>
-  <button type="submit" class="btn btn-success mx-2">Search</button>
-</form>
+<div class="d-flex justify-content-center">
+  <form action="" method="POST" class="mx-2">
+    {% csrf_token %}
+    <select name="optionname" class="form-select mx-2" id="">
+      {% for n in notes%}
+      <option value="{{n.select_sub}}">{{n.select_sub}}</option>
+      {%endfor%}
+    </select>
+    <button type="submit" class="btn btn-success mx-2">Search by Option</button>
+  </form>
+
+  <form action="" method="POST" class="mx-2">
+    {% csrf_token %}
+    <input type="text" name="search_word" class="form-control mx-2" placeholder="Search by word">
+    <button type="submit" class="btn btn-primary mx-2">Search by Word</button>
+  </form>
+</div>
 
 <table class="table">
     <thead>

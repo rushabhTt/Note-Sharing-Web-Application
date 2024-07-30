@@ -1,5 +1,6 @@
 from os import name
 from django.contrib import messages
+from django.db.models import Q
 from django.db.models.expressions import Value
 from django.forms.widgets import ChoiceWidget
 from django.http import request
@@ -11,6 +12,8 @@ from django.contrib.auth.decorators import login_required
 from .models import semFour,semThree,semOne,semTwo,notificationsLive
 from django.core.files.storage import FileSystemStorage
 from .forms import semfourControl, semoneControl, semthreeControl, semtwoControl
+from django.http import JsonResponse
+import requests
 # Create your views here.
 
 def home(request):
@@ -62,39 +65,66 @@ def logout_view(request):
 @login_required(login_url='/login/')
 def semone_view(request):
     if request.method == "POST":
-        selected_option = request.POST["optionname"]
-        notes = semOne.objects.filter(select_sub=selected_option)
+        if "optionname" in request.POST:
+            selected_option = request.POST["optionname"]
+            notes = semOne.objects.filter(select_sub=selected_option)
+        elif "search_word" in request.POST:
+            search_word = request.POST["search_word"]
+            notes = semOne.objects.filter(
+                Q(select_sub__icontains=search_word) |
+                Q(module_name__icontains=search_word)
+            )
     else:
         notes = semOne.objects.all()
-    return render(request, 'semnotes/sem1.html',{'notes':notes})
+    return render(request, 'semnotes/sem1.html', {'notes': notes})
 
 @login_required(login_url='/login/')
 def semtwo_view(request):
     if request.method == "POST":
-        selected_option = request.POST["optionname"]
-        notes = semTwo.objects.filter(select_sub=selected_option)
+        if "optionname" in request.POST:
+            selected_option = request.POST["optionname"]
+            notes = semTwo.objects.filter(select_sub=selected_option)
+        elif "search_word" in request.POST:
+            search_word = request.POST["search_word"]
+            notes = semTwo.objects.filter(
+                Q(select_sub__icontains=search_word) |
+                Q(module_name__icontains=search_word)
+            )
     else:
         notes = semTwo.objects.all()
-    return render(request, 'semnotes/sem2.html',{'notes':notes})
-        
+    return render(request, 'semnotes/sem2.html', {'notes': notes})
 
 @login_required(login_url='/login/')
 def semthree_view(request):
     if request.method == "POST":
-        selected_option = request.POST["optionname"]
-        notes = semThree.objects.filter(select_sub=selected_option)
+        if "optionname" in request.POST:
+            selected_option = request.POST["optionname"]
+            notes = semThree.objects.filter(select_sub=selected_option)
+        elif "search_word" in request.POST:
+            search_word = request.POST["search_word"]
+            notes = semThree.objects.filter(
+                Q(select_sub__icontains=search_word) |
+                Q(module_name__icontains=search_word)
+            )
     else:
         notes = semThree.objects.all()
-    return render(request, 'semnotes/sem3.html',{'notes':notes})
+    return render(request, 'semnotes/sem3.html', {'notes': notes})
 
 @login_required(login_url='/login/')
 def semfour_view(request):
     if request.method == "POST":
-        selected_option = request.POST["optionname"]
-        notes = semFour.objects.filter(select_sub=selected_option)
+        if "optionname" in request.POST:
+            selected_option = request.POST["optionname"]
+            notes = semFour.objects.filter(select_sub=selected_option)
+        elif "search_word" in request.POST:
+            search_word = request.POST["search_word"]
+            notes = semFour.objects.filter(
+                Q(select_sub__icontains=search_word) |
+                Q(module_name__icontains=search_word)
+            )
     else:
         notes = semFour.objects.all()
-    return render(request, 'semnotes/sem4.html',{'notes':notes})
+    return render(request, 'semnotes/sem4.html', {'notes': notes})
 
 @login_required(login_url='/login/')
 def admin_view(request):
@@ -152,3 +182,13 @@ def delete_profile(request):
     d_user.delete()
     return redirect('login')
     
+def get_joke(request):
+    response = requests.get('https://official-joke-api.appspot.com/random_joke')
+    if response.status_code == 200:
+        joke_data = response.json()
+        return JsonResponse({
+            'setup': joke_data['setup'],
+            'punchline': joke_data['punchline']
+        })
+    else:
+        return JsonResponse({'error': 'Failed to fetch joke'}, status=500)

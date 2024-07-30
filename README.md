@@ -5,17 +5,17 @@ Notes Sharing App using django(python framework)
 1.  Python Version >> 3.7.8
 2.  Virtualenv setup
  
-Original Features
+### Original Features
 1. A registerd user can access all the notes shared/added by the admin
 2. Can download the pdfs
 3. Admin can handle all the feattures like adding/updating/deleting the notes/users and can have overall control.
 5. sqlite3 database
 
-Modified Features:
+### Modified Features:
 1. Search by word functionality for logged-in users
 2. API is used to fetch jokes from a button: "Are you bored?" for logged-in users
 
-How to Run this project locally?
+## How to Run this project locally? (Follow following instructions)
 
 <!-- ## Virtualenv Setup
 1.    <code>python -m install virtualenv</code> or <code>pip install virtualenv</code> 

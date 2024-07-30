@@ -13,7 +13,7 @@ Original Features
 
 Modified Features:
 1. Search by word functionality for logged-in users
-2. API is used to fetch jokes for a button: "Are you bored?" for logged-in users
+2. API is used to fetch jokes from a button: "Are you bored?" for logged-in users
 
 How to Run this project locally?
 
@@ -26,7 +26,7 @@ How to Run this project locally?
 &nbsp;
 
 ## Run Project
-1.  <code>First Locate to project folder in cmd with virtual environment running</code>
+1.  First Locate to project folder in cmd with virtual environment running
 &nbsp;
 2.  <code>cd ./django-notesapp</code> then <code>pip install -r requirements.txt</code>
 &nbsp;

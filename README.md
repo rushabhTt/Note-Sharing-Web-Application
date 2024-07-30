@@ -5,29 +5,30 @@ Notes Sharing App using django(python framework)
 1.  Python Version >> 3.7.8
 2.  Virtualenv setup
  
-Features
+Original Features
 1. A registerd user can access all the notes shared/added by the admin
 2. Can download the pdfs
-3. can request specific notes
-4. Admin can handle all the feattures like adding/updating/deleting the notes/users and can have overall control.
+3. Admin can handle all the feattures like adding/updating/deleting the notes/users and can have overall control.
 5. sqlite3 database
 
-Give It 🌟 if u find it useful.
+Modified Features:
+1. Search by word functionality for logged-in users
+2. API is used to fetch jokes for a button: "Are you bored?" for logged-in users
 
-How to Run this project?
+How to Run this project locally?
 
 ## Virtualenv Setup
 1.    <code>python -m install virtualenv</code> or <code>pip install virtualenv</code> 
 &nbsp;
 3.    <code>virtualenv (environment_name)</code>
 &nbsp;
-5.    <code>environment_name\Scripts\activate</code>
+5.    <code>.\(environment_name)\Scripts\activate</code> or On Unix or MacOS: <code>source (environment_name)/bin/activate</code>
 &nbsp;
 
 ## Run Project
 1.  <code>First Locate to project folder in cmd with virtual environment running</code>
 &nbsp;
-2.  <code>pip install -r requirements.txt</code>
+2.  <code>cd ./django-notesapp</code> then <code>pip install -r requirements.txt</code>
 &nbsp;
 3.  <code>python manage.py makemigrations</code>
 &nbsp;

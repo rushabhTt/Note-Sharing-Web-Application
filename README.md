@@ -81,3 +81,120 @@ Notes Sharing App using django(python framework)
     - Log in using the superuser's username and password.
 
 Your note-sharing app should now be up and running!
+
+## Deployment Guide for AWS Lambda with Zappa
+
+This guide provides step-by-step instructions for deploying a Django application to AWS Lambda using Zappa. It also includes setting up an S3 bucket for file uploads and updating the application's URLs to work with the Lambda function's URL.
+
+### Prerequisites
+
+- Python 3.6 or later
+- Django application setup
+- AWS CLI configured with appropriate credentials
+- Zappa installed (`pip install zappa`)
+
+### Steps
+
+### 1. Install Zappa
+
+First, ensure that Zappa is installed in your virtual environment. You can install it using pip:
+
+```bash
+pip install zappa
+```
+
+### 2. Configure AWS S3 Bucket
+
+Create an S3 bucket to store uploaded files:
+
+1. Go to the [AWS S3 console](https://console.aws.amazon.com/s3/).
+2. Click on "Create bucket."
+3. Choose a unique bucket name and select a region.
+4. Configure bucket settings as needed and click "Create bucket."
+
+### 3. Update Django Settings
+
+In your Django project's `settings.py`, configure the following settings for media file uploads to S3:
+
+Bucket can also be made by zappa automatically we have to make it available to read to make it accessible by the project.
+
+```python
+# AWS_ACCESS_KEY_ID = 'your-access-key'
+# AWS_SECRET_ACCESS_KEY = 'your-secret-key'
+AWS_STORAGE_BUCKET_NAME = 'your-bucket-name'
+AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
+```
+
+Ensure you have the `django-storages` package installed:
+
+```bash
+pip install django-storages boto3
+```
+
+### 4. Initialize Zappa
+
+In the root of your Django project, initialize Zappa:
+
+```bash
+zappa init
+```
+
+Follow the prompts:
+
+- **AWS region:** Select your preferred AWS region.
+- **S3 bucket:** Enter the name of your S3 bucket.
+- **Django settings:** Specify the path to your `settings.py` file (e.g., `your_project.settings`).
+- **Other settings:** Use default values unless you have specific requirements.
+
+This command creates a `zappa_settings.json` file in your project root.
+
+### 5. Update URLs for Lambda
+
+In your Django settings or views, update any URLs or API routes to match your new Lambda function's URL. You can find the URL after deploying the function.
+
+### 6. Deploy the Lambda Function
+
+Deploy your Django application to AWS Lambda using Zappa:
+
+```bash
+zappa deploy production
+```
+
+Zappa will package your application, create a Lambda function, and deploy it. Note the provided URL, which will be your new endpoint for the Django application.
+
+### 7. Update API Endpoints
+
+If your application uses hard-coded URLs for API endpoints, update them to use the new Lambda function URL. This ensures that project interact with the deployment.
+
+### 8. Managing Media Files
+
+Since media files are stored in S3, ensure your Django admin panel and any other file upload functionalities point to the correct S3 URLs.
+
+### 9. Updating and Managing the Lambda Function
+
+To update your Lambda function after making changes to your Django application:
+
+```bash
+zappa update production
+```
+
+To manage your deployment, use:
+
+- **`zappa status`**: Check the status of the deployed application.
+- **`zappa tail`**: View logs in real-time.
+
+### 10. Cleanup
+
+To remove the Lambda function and associated resources:
+
+```bash
+zappa undeploy production
+```
+
+## Conclusion
+
+This README provides the essential steps to deploy a Django application to AWS Lambda using Zappa. For more advanced configurations and features, refer to the [Zappa documentation](https://github.com/Miserlou/Zappa) and AWS Lambda best practices.

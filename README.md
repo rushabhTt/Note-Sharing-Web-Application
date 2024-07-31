@@ -1,6 +1,10 @@
 # django-notes app
 Notes Sharing App using django(python framework)
 
+## Loom video link:
+https://www.loom.com/share/cf8414d2f9e343af8b0ba0f7f03ef705?sid=66343ea5-52eb-4745-9395-383b4c27248a
+https://www.loom.com/share/f1080d1a080b4ded90d4b267207ab617?sid=4efac753-6476-43ee-8c85-3f5de97141a4
+
 # PREREQUISITES
 1.  Python Version >> 3.7.8
 2.  Virtualenv setup

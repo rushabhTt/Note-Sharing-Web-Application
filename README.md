@@ -165,7 +165,7 @@ In your Django settings or views, update any URLs or API routes to match your ne
 Deploy your Django application to AWS Lambda using Zappa:
 
 ```bash
-zappa deploy production
+zappa deploy dev
 ```
 
 Zappa will package your application, create a Lambda function, and deploy it. Note the provided URL, which will be your new endpoint for the Django application.
@@ -183,7 +183,7 @@ Since media files are stored in S3, ensure your Django admin panel and any other
 To update your Lambda function after making changes to your Django application:
 
 ```bash
-zappa update production
+zappa update dev
 ```
 
 To manage your deployment, use:
@@ -196,7 +196,7 @@ To manage your deployment, use:
 To remove the Lambda function and associated resources:
 
 ```bash
-zappa undeploy production
+zappa undeploy dev
 ```
 
 ## Conclusion
